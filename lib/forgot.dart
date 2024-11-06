@@ -45,38 +45,42 @@ class _ForgotState extends State<Forgot> {
     return Scaffold(
       appBar: AppBar(title: const Text("Lupa Password")),
       body: Center(
-        child: Container(
-          width: 600,
-          padding: const EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                controller: email,
-                decoration: const InputDecoration(
-                  hintText: "Masukkan Email",
-                  border: OutlineInputBorder(),
+        child: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width < 600
+                ? MediaQuery.of(context).size.width * 0.8 // Lebar 80% layar jika lebih kecil dari 600
+                : 600, // Jika layar besar, lebar kontainer 600
+            padding: const EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
                 ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: (() => reset()),
-                child: const Text("Send link"),
-              ),
-            ],
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  controller: email,
+                  decoration: const InputDecoration(
+                    hintText: "Masukkan Email",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: (() => reset()),
+                  child: const Text("Send link"),
+                ),
+              ],
+            ),
           ),
         ),
       ),

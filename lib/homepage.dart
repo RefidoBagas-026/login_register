@@ -19,13 +19,17 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Homepage"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.login_rounded),
+            onPressed: (() => signout()),
+          ),
+        ],
       ),
       body: Center(
         child: Text("${user!.email}"),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (()=>signout()),
-        child: Icon(Icons.login_rounded),),
+
     );
   }
 }

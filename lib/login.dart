@@ -12,8 +12,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController email= TextEditingController();
-  TextEditingController password= TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   bool isLoading = false;
 
@@ -40,26 +40,29 @@ class _LoginState extends State<Login> {
       // Bersihkan field setelah login
       email.clear();
       password.clear();
-
     } on FirebaseAuthException catch (e) {
       String errorMessage;
 
       switch (e.code) {
         case 'invalid-email':
-          errorMessage = 'Format email tidak valid. Mohon masukkan email yang benar.';
+          errorMessage =
+          'Format email tidak valid. Mohon masukkan email yang benar.';
           break;
         case 'user-not-found':
-          errorMessage = 'Email tidak terdaftar. Mohon cek kembali email Anda atau daftar akun baru.';
+          errorMessage =
+          'Email tidak terdaftar. Mohon cek kembali email Anda atau daftar akun baru.';
           break;
         case 'wrong-password':
           errorMessage = 'Password salah. Mohon coba lagi.';
           break;
         case 'invalid-credential':
-          errorMessage = 'Kredensial tidak valid atau telah kadaluarsa. Mohon coba lagi.';
+          errorMessage =
+          'Kredensial tidak valid atau telah kadaluarsa. Mohon coba lagi.';
           break;
         case 'expired-action-code':
         case 'invalid-action-code':
-          errorMessage = 'Kredensial telah kadaluarsa atau tidak valid. Mohon lakukan login ulang.';
+          errorMessage =
+          'Kredensial telah kadaluarsa atau tidak valid. Mohon lakukan login ulang.';
           break;
         default:
           errorMessage = 'Terjadi kesalahan: ${e.message}';
@@ -81,75 +84,76 @@ class _LoginState extends State<Login> {
     return isLoading
         ? const Center(child: CircularProgressIndicator())
         : Scaffold(
-      appBar: AppBar(title: const Text('Coffeeshop Login')),
+      appBar: AppBar(title: const Text('By Refido')),
       body: Center(
         child: SingleChildScrollView(
-        child: Container(
-          width: 600,
-          padding: const EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                controller: email,
-                decoration: const InputDecoration(
-                  hintText: "Masukkan Email",
-                  border: OutlineInputBorder(),
+          child: Container(
+            width: MediaQuery.of(context).size.width < 600
+                ? MediaQuery.of(context).size.width * 0.8 // Lebar 80% layar jika lebih kecil dari 600
+                : 600, // Jika layar besar, lebar kontainer 600
+            padding: const EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
                 ),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: password,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  hintText: "Masukkan Password",
-                  border: OutlineInputBorder(),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  controller: email,
+                  decoration: const InputDecoration(
+                    hintText: "Masukkan Email",
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: (() => Get.to(Forgot())),
-                    child: const Text("Lupa Password?"),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: password,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    hintText: "Masukkan Password",
+                    border: OutlineInputBorder(),
                   ),
-                ],
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: signIn,
-                child: const Text("Login"),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Belum memiliki akun? "),
-                  TextButton(
-                    onPressed: (() => Get.to(Signup())),
-                    child: const Text("Daftar Sekarang"),
-                  ),
-                ],
-              ),
-
-            ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: (() => Get.to(Forgot())),
+                      child: const Text("Lupa Password?"),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30),
+                ElevatedButton(
+                  onPressed: signIn,
+                  child: const Text("Login"),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Belum memiliki akun? "),
+                    TextButton(
+                      onPressed: (() => Get.to(Signup())),
+                      child: const Text("Daftar Sekarang"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    ),
     );
   }
 }
